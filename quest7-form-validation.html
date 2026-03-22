@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quest 7</title>
+</head>
+<body>
+
+<h2>Objects Practice</h2>
+
+<script>
+
+const user = {
+  name: 'Alex',
+  age: 25,
+  email: 'alex@example.com',
+  isAdmin: false
+};
+
+console.log(user.name);
+console.log(user["name"]);
+
+user.country = "USA";
+user.age = 26;
+
+console.log(user);
+
+const users = [
+  { name: 'Alex', age: 25 },
+  { name: 'Jordan', age: 30 },
+  { name: 'Sam', age: 22 }
+];
+
+users.forEach(user => console.log(user.name));
+
+const products = [
+  { name: 'Laptop', price: 1200, inStock: true },
+  { name: 'Phone', price: 800, inStock: false },
+  { name: 'Headphones', price: 150, inStock: true }
+];
+
+products.forEach(product => {
+  if (product.inStock) {
+    console.log(product);
+  }
+});
+
+</script>
+
+</body>
+</html>
