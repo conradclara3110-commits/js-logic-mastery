@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Product Manager</title>
+  <style>
+    body { font-family: Arial; }
+    input, select, button { margin: 5px; padding: 6px; }
+    .product { margin: 5px 0; }
+  </style>
+</head>
+<body>
+
+<h2>🏆 Product List Manager</h2>
+
+<input type="text" id="name" placeholder="Product Name">
+<input type="number" id="price" placeholder="Price">
+<select id="category">
+  <option>Electronics</option>
+  <option>Clothing</option>
+  <option>Food</option>
+</select>
+<label>
+  <input type="checkbox" id="inStock"> In Stock
+</label>
+<button onclick="addProduct()">Add Product</button>
+
+<hr>
+
+<button onclick="filterCategory('All')">All</button>
+<button onclick="filterCategory('Electronics')">Electronics</button>
+<button onclick="filterCategory('Clothing')">Clothing</button>
+<button onclick="filterCategory('Food')">Food</button>
+
+<label>
+  <input type="checkbox" id="stockFilter" onchange="displayProducts()"> Show In-Stock Only
+</label>
+
+<br>
+<input type="text" id="search" placeholder="Search..." oninput="displayProducts()">
+
+<button onclick="sortByPrice()">Sort by Price</button>
+
+<h3>Products:</h3>
+<div id="productList"></div>
+
+<h3 id="totalValue"></h3>
+
+<script>
+
+let products = [
+  { name: 'Laptop', price: 1200, category: 'Electronics', inStock: true },
+  { name: 'T-Shirt', price: 25, category: 'Clothing', inStock: true },
+  { name: 'Apple', price: 2, category: 'Food', inStock: false }
+];
+
+let currentCategory = 'All';
+
+function displayProducts() {
+  const list = document.getElementById('productList');
+  list.innerHTML = '';
+
+  const stockOnly = document.getElementById('stockFilter').checked;
+  const searchTerm = document.getElementById('search').value.toLowerCase();
+
+  let filtered = products.filter(p => {
+    return (currentCategory === 'All' || p.category === currentCategory) &&
+           (!stockOnly || p.inStock) &&
+           p.name.toLowerCase().includes(searchTerm);
+  });
+
+  filtered.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'product';
+    div.textContent = `${p.name} - $${p.price} (${p.category}) ${p.inStock ? '[In Stock]' : '[Out of Stock]'}`;
+    list.appendChild(div);
+  });
+
+  const total = products.reduce((sum, p) => sum + p.price, 0);
+  document.getElementById('totalValue').textContent = 'Total Value: $' + total;
+}
+
+function addProduct() {
+  const name = document.getElementById('name').value;
+  const price = parseFloat(document.getElementById('price').value);
+  const category = document.getElementById('category').value;
+  const inStock = document.getElementById('inStock').checked;
+
+  if (!name || isNaN(price)) {
+    alert('Please enter valid product details');
+    return;
+  }
+
+  products.push({ name, price, category, inStock });
+
+  displayProducts();
+}
+
+function filterCategory(category) {
+  currentCategory = category;
+  displayProducts();
+}
+
+function sortByPrice() {
+  products.sort((a, b) => a.price - b.price);
+  displayProducts();
+}
+
+displayProducts();
+</script>
+
+</body>
+</html>
