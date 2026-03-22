@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quest 6</title>
+</head>
+<body>
+
+<h2>Array Methods Practice</h2>
+
+<script>
+
+const numbers1 = [1, 2, 3, 4, 5, 6];
+const evenNumbers = numbers1.filter(num => num % 2 === 0);
+console.log(evenNumbers); 
+
+const numbers2 = [1, 2, 3];
+const doubled = numbers2.map(num => num * 2);
+console.log(doubled); 
+const users = [
+  { name: 'Alex', age: 25 },
+  { name: 'Jordan', age: 30 }
+];
+
+const user = users.find(u => u.name === 'Alex');
+console.log(user);  
+
+const numbers = [5, 12, 8, 20, 3, 15];
+
+const greaterThanTen = numbers.filter(num => num > 10);
+
+const result = greaterThanTen.map(num => num * 2);
+
+console.log(result);  
+
+</script>
+
+</body>
+</html>
